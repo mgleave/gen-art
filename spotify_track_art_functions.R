@@ -6,7 +6,7 @@ search_track <- function(track_name) {
   search_result <- search_spotify(track_name, type="track")
   
   search_top <- search_result[1,]
-  print(paste("The top result is", search_top[1,"name"], "by", search_top[1,"album.artists"]))
+  print(paste("The top result is", search_top[1,"name"], "by", search_result$artists[[1]]["name"]))
   
   search_top_id <- search_top[1,"id"]
   return(search_top_id)
@@ -106,6 +106,9 @@ prep_notes_data <- function(track_audio_analysis) {
 
 generate_track_art <- function(track_id) {
   
+  track_info <- get_track_info(track_id)
+  track_name <- tolower(track_info$name)
+
   df <- get_track_audio_data(track_id)
   
   beats <- df %>% prep_beats_data(.)
@@ -122,17 +125,33 @@ generate_track_art <- function(track_id) {
              position = "fill") +
     geom_line(data=beats, aes(x=start,
                               y=confidence+.5, alpha=duration), color="white") +
-    # scale_color_viridis(option="magma",discrete=T) + 
+   # scale_color_viridis(option="viridis",discrete=T) + 
+   # scale_color_manual(values=rainbow(12)) +
+    labs(caption = track_name, color="white") +
     coord_polar() + 
     theme_void() + 
     theme(legend.position = "none") +
-    theme(plot.background = element_rect(fill = "black"))
+    theme(plot.background = element_rect(fill = "black")) +
+    theme(plot.caption=element_text(size=10, hjust=.98, face="italic", color="#404040", family="Courier New"))
+  
   
   return(plot)
   
 }
 
 
-generate_track_art("0AQquaENerGps8BQmbPw14?si=8dabce3769b34a09")
-generate_track_art("1nRTH500HbZX8PYwT4ZMby?si=addcc1b5de7e4b22")
-generate_track_art("3xKsf9qdS1CyvXSMEid6g8?si=eb603ea54e034d30")
+#generate_track_art("0AQquaENerGps8BQmbPw14?si=8dabce3769b34a09")
+#generate_track_art("1nRTH500HbZX8PYwT4ZMby?si=addcc1b5de7e4b22")
+#generate_track_art("3xKsf9qdS1CyvXSMEid6g8?si=eb603ea54e034d30")
+
+generate_track_art_search <- function(track_name) {
+  
+  track_id <- search_track(track_name)
+  
+  plot <- generate_track_art(track_id)
+  return(plot)
+}
+
+#generate_track_art_search("All Too Well")
+#generate_track_art_search("Che Vuole Questa")
+

@@ -127,6 +127,7 @@ generate_track_art <- function(track_id) {
              position = "fill") +
     geom_line(data=beats, aes(x=start,
                               y=confidence+.5, alpha=duration), color="white") +
+   ## other color palette options
    # scale_color_viridis(option="viridis",discrete=T) + 
    # scale_color_manual(values=rainbow(12)) +
     labs(caption = paste(track_name,"\n"), color="white") +
@@ -141,7 +142,7 @@ generate_track_art <- function(track_id) {
   
 }
 
-
+# Look up IDs from song URLs
 #generate_track_art("0AQquaENerGps8BQmbPw14?si=8dabce3769b34a09")
 #generate_track_art("1nRTH500HbZX8PYwT4ZMby?si=addcc1b5de7e4b22")
 #generate_track_art("3xKsf9qdS1CyvXSMEid6g8?si=eb603ea54e034d30")
@@ -154,6 +155,7 @@ generate_track_art_search <- function(track_name) {
   return(plot)
 }
 
+# Look up songs by title
 #generate_track_art_search("All Too Well")
 #generate_track_art_search("Che Vuole Questa")
 #generate_track_art_search("Dang! (feat. Anderson .Paak)")

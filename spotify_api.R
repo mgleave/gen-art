@@ -130,5 +130,6 @@ ggplot(topnotes, aes(x=start)) +
   theme(legend.position = "none") +
   theme(plot.background = element_rect(fill = "black"))
 
-
-
+##
+search_result <- search_spotify("All Too Well", type="track")
+search_result$artists[[1]]["name"]

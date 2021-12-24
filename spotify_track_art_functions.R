@@ -106,6 +106,8 @@ prep_notes_data <- function(track_audio_analysis) {
 
 generate_track_art <- function(track_id) {
   
+  require(ggplot2)
+  
   track_info <- get_track_info(track_id)
   track_name <- tolower(track_info$name)
 
@@ -127,12 +129,12 @@ generate_track_art <- function(track_id) {
                               y=confidence+.5, alpha=duration), color="white") +
    # scale_color_viridis(option="viridis",discrete=T) + 
    # scale_color_manual(values=rainbow(12)) +
-    labs(caption = track_name, color="white") +
+    labs(caption = paste(track_name,"\n"), color="white") +
     coord_polar() + 
     theme_void() + 
     theme(legend.position = "none") +
-    theme(plot.background = element_rect(fill = "black")) +
-    theme(plot.caption=element_text(size=10, hjust=.98, face="italic", color="#404040", family="Courier New"))
+    theme(plot.background = element_rect(fill = "#222222")) +
+    theme(plot.caption=element_text(size=12, hjust=.98, vjust=1, face="italic", color="#808080", family="Courier New"))
   
   
   return(plot)
@@ -154,4 +156,14 @@ generate_track_art_search <- function(track_name) {
 
 #generate_track_art_search("All Too Well")
 #generate_track_art_search("Che Vuole Questa")
+#generate_track_art_search("Dang! (feat. Anderson .Paak)")
+
+save_art <- function(filepath, plot) {
+  
+  ggsave(filepath, plot, width=7, height=7, units="in" )
+  
+}
+
+#save_art("big_iron.png", generate_track_art("0AQquaENerGps8BQmbPw14?si=8dabce3769b34a09"))
+
 

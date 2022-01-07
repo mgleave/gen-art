@@ -126,7 +126,7 @@ generate_track_art <- function(track_id) {
                  alpha=loudness_norm),
              position = "fill") +
     geom_line(data=beats, aes(x=start,
-                              y=confidence+.5, alpha=duration), color="white") +
+                              y=confidence+.5, alpha=duration), color="white", size=1.5) +
    ## other color palette options
    # scale_color_viridis(option="viridis",discrete=T) + 
    # scale_color_manual(values=rainbow(12)) +
@@ -135,7 +135,7 @@ generate_track_art <- function(track_id) {
     theme_void() + 
     theme(legend.position = "none") +
     theme(plot.background = element_rect(fill = "#222222")) +
-    theme(plot.caption=element_text(size=12, hjust=.98, vjust=1, face="italic", color="#808080", family="Courier New"))
+    theme(plot.caption=element_text(size=20, hjust=.98, vjust=1, face="italic", color="#808080", family="Courier New"))
   
   
   return(plot)
@@ -143,9 +143,9 @@ generate_track_art <- function(track_id) {
 }
 
 # Look up IDs from song URLs
-#generate_track_art("0AQquaENerGps8BQmbPw14?si=8dabce3769b34a09")
+generate_track_art("0AQquaENerGps8BQmbPw14?si=8dabce3769b34a09")
 #generate_track_art("1nRTH500HbZX8PYwT4ZMby?si=addcc1b5de7e4b22")
-#generate_track_art("3xKsf9qdS1CyvXSMEid6g8?si=eb603ea54e034d30")
+generate_track_art("3xKsf9qdS1CyvXSMEid6g8?si=eb603ea54e034d30")
 
 generate_track_art_search <- function(track_name) {
   
@@ -158,14 +158,14 @@ generate_track_art_search <- function(track_name) {
 # Look up songs by title
 #generate_track_art_search("All Too Well")
 #generate_track_art_search("Che Vuole Questa")
-#generate_track_art_search("Dang! (feat. Anderson .Paak)")
+generate_track_art_search("Dang! (feat. Anderson .Paak)")
 
 save_art <- function(filepath, plot) {
   
-  ggsave(filepath, plot, width=7, height=7, units="in" )
+  ggsave(filepath, plot, width=7, units="in", dpi=700 )
   
 }
 
-#save_art("big_iron.png", generate_track_art("0AQquaENerGps8BQmbPw14?si=8dabce3769b34a09"))
+save_art("big_iron.png", generate_track_art("0AQquaENerGps8BQmbPw14?si=8dabce3769b34a09"))
 
 
